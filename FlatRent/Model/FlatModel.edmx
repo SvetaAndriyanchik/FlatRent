@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="flatrentModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="flat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="idRegion" Type="int" />
+          <Property Name="idRoomCount" Type="int" />
+          <Property Name="idWallMaterial" Type="int" />
+          <Property Name="idYearConstruction" Type="int" />
+          <Property Name="floor" Type="int" />
+          <Property Name="numberOfFloors" Type="int" />
+          <Property Name="square" Type="float" />
+          <Property Name="street" Type="varchar" MaxLength="45" />
+          <Property Name="houseNumber" Type="int" />
+          <Property Name="flatNumber" Type="int" />
+          <Property Name="views" Type="int" />
+        </EntityType>
+        <EntityType Name="region">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="coefficient" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="roomcount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="roomCount" Type="int" Nullable="false" />
+          <Property Name="coefficient" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="wallmaterial">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="45" />
+          <Property Name="coefficient" Type="int" />
+        </EntityType>
+        <EntityType Name="yearconstruction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="yearConstruction" Type="int" />
+          <Property Name="coefficient" Type="int" />
+        </EntityType>
+        <Association Name="idRegion">
+          <End Role="region" Type="Self.region" Multiplicity="0..1" />
+          <End Role="flat" Type="Self.flat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="region">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="flat">
+              <PropertyRef Name="idRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idRoomCount">
+          <End Role="roomcount" Type="Self.roomcount" Multiplicity="0..1" />
+          <End Role="flat" Type="Self.flat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roomcount">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="flat">
+              <PropertyRef Name="idRoomCount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idWallMaterial">
+          <End Role="wallmaterial" Type="Self.wallmaterial" Multiplicity="0..1" />
+          <End Role="flat" Type="Self.flat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="wallmaterial">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="flat">
+              <PropertyRef Name="idWallMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idYearConstruction">
+          <End Role="yearconstruction" Type="Self.yearconstruction" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="flat" Type="Self.flat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="yearconstruction">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="flat">
+              <PropertyRef Name="idYearConstruction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="flatrentModelStoreContainer">
+          <EntitySet Name="flat" EntityType="Self.flat" Schema="flatrent" store:Type="Tables" />
+          <EntitySet Name="region" EntityType="Self.region" Schema="flatrent" store:Type="Tables" />
+          <EntitySet Name="roomcount" EntityType="Self.roomcount" Schema="flatrent" store:Type="Tables" />
+          <EntitySet Name="wallmaterial" EntityType="Self.wallmaterial" Schema="flatrent" store:Type="Tables" />
+          <EntitySet Name="yearconstruction" EntityType="Self.yearconstruction" Schema="flatrent" store:Type="Tables" />
+          <AssociationSet Name="idRegion" Association="Self.idRegion">
+            <End Role="region" EntitySet="region" />
+            <End Role="flat" EntitySet="flat" />
+          </AssociationSet>
+          <AssociationSet Name="idRoomCount" Association="Self.idRoomCount">
+            <End Role="roomcount" EntitySet="roomcount" />
+            <End Role="flat" EntitySet="flat" />
+          </AssociationSet>
+          <AssociationSet Name="idWallMaterial" Association="Self.idWallMaterial">
+            <End Role="wallmaterial" EntitySet="wallmaterial" />
+            <End Role="flat" EntitySet="flat" />
+          </AssociationSet>
+          <AssociationSet Name="idYearConstruction" Association="Self.idYearConstruction">
+            <End Role="yearconstruction" EntitySet="yearconstruction" />
+            <End Role="flat" EntitySet="flat" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="flatrentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="flat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="idRegion" Type="Int32" />
+          <Property Name="idRoomCount" Type="Int32" />
+          <Property Name="idWallMaterial" Type="Int32" />
+          <Property Name="idYearConstruction" Type="Int32" />
+          <Property Name="floor" Type="Int32" />
+          <Property Name="numberOfFloors" Type="Int32" />
+          <Property Name="square" Type="Single" />
+          <Property Name="street" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="houseNumber" Type="Int32" />
+          <Property Name="flatNumber" Type="Int32" />
+          <Property Name="views" Type="Int32" />
+          <NavigationProperty Name="region" Relationship="Self.idRegion" FromRole="flat" ToRole="region" />
+          <NavigationProperty Name="roomcount" Relationship="Self.idRoomCount" FromRole="flat" ToRole="roomcount" />
+          <NavigationProperty Name="wallmaterial" Relationship="Self.idWallMaterial" FromRole="flat" ToRole="wallmaterial" />
+          <NavigationProperty Name="yearconstruction" Relationship="Self.idYearConstruction" FromRole="flat" ToRole="yearconstruction" />
+        </EntityType>
+        <EntityType Name="region">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="coefficient" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="flats" Relationship="Self.idRegion" FromRole="region" ToRole="flat" />
+        </EntityType>
+        <EntityType Name="roomcount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="roomCount" Type="Int32" Nullable="false" />
+          <Property Name="coefficient" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="flats" Relationship="Self.idRoomCount" FromRole="roomcount" ToRole="flat" />
+        </EntityType>
+        <EntityType Name="wallmaterial">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="coefficient" Type="Int32" />
+          <NavigationProperty Name="flats" Relationship="Self.idWallMaterial" FromRole="wallmaterial" ToRole="flat" />
+        </EntityType>
+        <EntityType Name="yearconstruction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="yearConstruction" Type="Int32" />
+          <Property Name="coefficient" Type="Int32" />
+          <NavigationProperty Name="flats" Relationship="Self.idYearConstruction" FromRole="yearconstruction" ToRole="flat" />
+        </EntityType>
+        <Association Name="idRegion">
+          <End Role="region" Type="Self.region" Multiplicity="0..1" />
+          <End Role="flat" Type="Self.flat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="region">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="flat">
+              <PropertyRef Name="idRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idRoomCount">
+          <End Role="roomcount" Type="Self.roomcount" Multiplicity="0..1" />
+          <End Role="flat" Type="Self.flat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roomcount">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="flat">
+              <PropertyRef Name="idRoomCount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idWallMaterial">
+          <End Role="wallmaterial" Type="Self.wallmaterial" Multiplicity="0..1" />
+          <End Role="flat" Type="Self.flat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="wallmaterial">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="flat">
+              <PropertyRef Name="idWallMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idYearConstruction">
+          <End Role="yearconstruction" Type="Self.yearconstruction" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="flat" Type="Self.flat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="yearconstruction">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="flat">
+              <PropertyRef Name="idYearConstruction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FlatrentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="flats" EntityType="Self.flat" />
+          <EntitySet Name="regions" EntityType="Self.region" />
+          <EntitySet Name="roomcounts" EntityType="Self.roomcount" />
+          <EntitySet Name="wallmaterials" EntityType="Self.wallmaterial" />
+          <EntitySet Name="yearconstructions" EntityType="Self.yearconstruction" />
+          <AssociationSet Name="idRegion" Association="Self.idRegion">
+            <End Role="region" EntitySet="regions" />
+            <End Role="flat" EntitySet="flats" />
+          </AssociationSet>
+          <AssociationSet Name="idRoomCount" Association="Self.idRoomCount">
+            <End Role="roomcount" EntitySet="roomcounts" />
+            <End Role="flat" EntitySet="flats" />
+          </AssociationSet>
+          <AssociationSet Name="idWallMaterial" Association="Self.idWallMaterial">
+            <End Role="wallmaterial" EntitySet="wallmaterials" />
+            <End Role="flat" EntitySet="flats" />
+          </AssociationSet>
+          <AssociationSet Name="idYearConstruction" Association="Self.idYearConstruction">
+            <End Role="yearconstruction" EntitySet="yearconstructions" />
+            <End Role="flat" EntitySet="flats" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="flatrentModelStoreContainer" CdmEntityContainer="FlatrentEntities">
+          <EntitySetMapping Name="flats">
+            <EntityTypeMapping TypeName="flatrentModel.flat">
+              <MappingFragment StoreEntitySet="flat">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idRegion" ColumnName="idRegion" />
+                <ScalarProperty Name="idRoomCount" ColumnName="idRoomCount" />
+                <ScalarProperty Name="idWallMaterial" ColumnName="idWallMaterial" />
+                <ScalarProperty Name="idYearConstruction" ColumnName="idYearConstruction" />
+                <ScalarProperty Name="floor" ColumnName="floor" />
+                <ScalarProperty Name="numberOfFloors" ColumnName="numberOfFloors" />
+                <ScalarProperty Name="square" ColumnName="square" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="flatNumber" ColumnName="flatNumber" />
+                <ScalarProperty Name="views" ColumnName="views" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="regions">
+            <EntityTypeMapping TypeName="flatrentModel.region">
+              <MappingFragment StoreEntitySet="region">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="coefficient" ColumnName="coefficient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roomcounts">
+            <EntityTypeMapping TypeName="flatrentModel.roomcount">
+              <MappingFragment StoreEntitySet="roomcount">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="roomCount" ColumnName="roomCount" />
+                <ScalarProperty Name="coefficient" ColumnName="coefficient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="wallmaterials">
+            <EntityTypeMapping TypeName="flatrentModel.wallmaterial">
+              <MappingFragment StoreEntitySet="wallmaterial">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="coefficient" ColumnName="coefficient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="yearconstructions">
+            <EntityTypeMapping TypeName="flatrentModel.yearconstruction">
+              <MappingFragment StoreEntitySet="yearconstruction">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="yearConstruction" ColumnName="yearConstruction" />
+                <ScalarProperty Name="coefficient" ColumnName="coefficient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

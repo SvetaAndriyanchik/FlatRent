@@ -1,0 +1,19 @@
+﻿<Window x:Class="FlatRent.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="269.038" Width="465.214">
+    <Grid Height="324" VerticalAlignment="Bottom" Margin="0,-81,-8,-4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="218*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="304*"/>
+            <ColumnDefinition Width="213*"/>
+        </Grid.ColumnDefinitions>
+        <ComboBox x:Name="combo_regions" HorizontalAlignment="Left" Margin="67,201,-106,-2" VerticalAlignment="Top" Width="342" Grid.ColumnSpan="2" Grid.RowSpan="2" SelectionChanged="ComboBox_SelectionChanged"/>
+        <Label Content="Выберите регион" HorizontalAlignment="Left" Margin="152,154,-93,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="244" FontSize="18"/>
+        <Button x:Name="okRegionButton" Content="Ok" Grid.Column="1" HorizontalAlignment="Left" Height="27" Margin="32,260,0,0" VerticalAlignment="Top" Width="104" FontSize="16" Click="okRegionButton_Click"/>
+
+    </Grid>
+</Window>
